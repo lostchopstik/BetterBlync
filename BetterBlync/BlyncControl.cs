@@ -23,7 +23,7 @@ namespace BetterBlync
         public BlyncControl()
         {
             blync = new BlynclightController();
-            lightCount = findBlyncLights();
+            lightCount = FindBlyncLights();
             if ( lightCount == 0 )
             {
                 // TODO create custom exception
@@ -34,6 +34,10 @@ namespace BetterBlync
             CurrentColor = BlyncColor.Green;
         }
 
+        /// <summary>
+        /// Change the color of the Blync light to any of the preset values.
+        /// </summary>
+        /// <param name="color">Enum value of possible colors.</param>
         public void SetColor(BlyncColor color)
         {
             switch ( color )
@@ -68,7 +72,7 @@ namespace BetterBlync
             }
         }
 
-        private int findBlyncLights()
+        public int FindBlyncLights()
         {
             return blync.InitBlyncDevices();
         }
@@ -90,6 +94,7 @@ namespace BetterBlync
         {
             for ( int i = lightCount; i >= 0; i-- )
                 blync.TurnOnBlueLight( i );
+
             CurrentColor = BlyncColor.Blue;
         }
 
@@ -97,6 +102,7 @@ namespace BetterBlync
         {
             for ( int i = lightCount; i >= 0; i-- )
                 blync.TurnOnCyanLight( i );
+
             CurrentColor = BlyncColor.Cyan;
         }
 
@@ -104,6 +110,7 @@ namespace BetterBlync
         {
             for ( int i = lightCount; i >= 0; i-- )
                 blync.TurnOnWhiteLight( 0 );
+
             CurrentColor = BlyncColor.White;
         }
 
@@ -111,6 +118,7 @@ namespace BetterBlync
         {
             for ( int i = lightCount; i >= 0; i-- )
                 blync.TurnOnYellowLight( i );
+
             CurrentColor = BlyncColor.Yellow;
         }
 
@@ -118,6 +126,7 @@ namespace BetterBlync
         {
             for ( int i = lightCount; i >= 0; i-- )
                 blync.TurnOnMagentaLight( i );
+
             CurrentColor = BlyncColor.Purple;
         }
 
@@ -125,6 +134,7 @@ namespace BetterBlync
         {
             for ( int i = lightCount; i >= 0; i-- )
                 blync.TurnOnRedLight( i );
+
             CurrentColor = BlyncColor.Red;
         }
 
@@ -132,8 +142,8 @@ namespace BetterBlync
         {
             for ( int i = lightCount; i >= 0; i-- )
                 blync.ResetLight( i );
+
             changeToGreen();
-            CurrentColor = BlyncColor.Green;
         }
 
         public void TurnOffLight()
