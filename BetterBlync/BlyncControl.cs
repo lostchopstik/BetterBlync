@@ -5,7 +5,7 @@ namespace BetterBlync
     public class BlyncControl
     {
         private BlynclightController blync;
-        private int lightCount, deviceSelection;
+        private int lightCount;
 
         public BlyncColor CurrentColor { get; private set; }
 
@@ -28,9 +28,6 @@ namespace BetterBlync
             {
                 // TODO create custom exception
             }
-            // TODO see what happens with multiple connected lights
-            // if ( lightCount == 1 ) deviceSelection = 0;
-            deviceSelection = 0;
 
             // Default color is green
             changeToGreen();
@@ -83,56 +80,66 @@ namespace BetterBlync
 
         private void changeToGreen()
         {
-            blync.TurnOnGreenLight( deviceSelection );
+            for ( int i = lightCount; i >= 0; i-- )
+                blync.TurnOnGreenLight( i );
+
             CurrentColor = BlyncColor.Green;
         }
 
         private void changeToBlue()
         {
-            blync.TurnOnBlueLight( deviceSelection );
+            for ( int i = lightCount; i >= 0; i-- )
+                blync.TurnOnBlueLight( i );
             CurrentColor = BlyncColor.Blue;
         }
 
         private void changeToCyan()
         {
-            blync.TurnOnCyanLight( deviceSelection );
+            for ( int i = lightCount; i >= 0; i-- )
+                blync.TurnOnCyanLight( i );
             CurrentColor = BlyncColor.Cyan;
         }
 
         private void changeToWhite()
         {
-            blync.TurnOnWhiteLight( 0 );
+            for ( int i = lightCount; i >= 0; i-- )
+                blync.TurnOnWhiteLight( 0 );
             CurrentColor = BlyncColor.White;
         }
 
         private void changeToYellow()
         {
-            blync.TurnOnYellowLight( deviceSelection );
+            for ( int i = lightCount; i >= 0; i-- )
+                blync.TurnOnYellowLight( i );
             CurrentColor = BlyncColor.Yellow;
         }
 
         private void changeToPurple()
         {
-            blync.TurnOnMagentaLight( deviceSelection );
+            for ( int i = lightCount; i >= 0; i-- )
+                blync.TurnOnMagentaLight( i );
             CurrentColor = BlyncColor.Purple;
         }
 
         private void changeToRed()
         {
-            blync.TurnOnRedLight( deviceSelection );
+            for ( int i = lightCount; i >= 0; i-- )
+                blync.TurnOnRedLight( i );
             CurrentColor = BlyncColor.Red;
         }
 
         public void ResetLight()
         {
-            blync.ResetLight( deviceSelection );
+            for ( int i = lightCount; i >= 0; i-- )
+                blync.ResetLight( i );
             changeToGreen();
             CurrentColor = BlyncColor.Green;
         }
 
         public void TurnOffLight()
         {
-            blync.ResetLight( deviceSelection );
+            for ( int i = lightCount; i >= 0; i-- )
+                blync.ResetLight( i );
         }
     }
 }
