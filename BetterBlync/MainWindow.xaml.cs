@@ -1,7 +1,7 @@
 ﻿using Microsoft.Lync.Model;
+using System;
 using System.Windows;
 using System.Windows.Threading;
-using System;
 
 namespace BetterBlync
 {
@@ -54,21 +54,21 @@ namespace BetterBlync
             }
             else
             {
-                if(thread != null) thread.Abort();
+                if ( thread != null ) thread.Abort();
             }
 
             switch ( lync.LyncAvailability )
             {
                 case ContactAvailability.Free:
-                    blync.ChangeToGreen();
+                    blync.SetColor( BlyncControl.BlyncColor.Green );
                     break;
 
                 case ContactAvailability.Busy:
-                    blync.ChangeToRed();
+                    blync.SetColor( BlyncControl.BlyncColor.Red );
                     break;
 
                 case ContactAvailability.DoNotDisturb:
-                    blync.ChangeToPurple();
+                    blync.SetColor( BlyncControl.BlyncColor.Purple );
                     break;
 
                 case ContactAvailability.Offline:
@@ -78,11 +78,11 @@ namespace BetterBlync
                 case ContactAvailability.FreeIdle:
                 case ContactAvailability.TemporarilyAway:
                 case ContactAvailability.Away:
-                    blync.ChangeToYellow();
+                    blync.SetColor( BlyncControl.BlyncColor.Yellow );
                     break;
 
                 default:
-                    blync.ChangeToGreen();
+                    blync.SetColor( BlyncControl.BlyncColor.Green );
                     break;
             }
         }
@@ -91,42 +91,41 @@ namespace BetterBlync
         {
             do
             {
-                blync.ChangeToRed();
+                blync.SetColor( BlyncControl.BlyncColor.Red );
                 System.Threading.Thread.Sleep( 400 );
                 blync.TurnOffLight();
                 System.Threading.Thread.Sleep( 400 );
             }
             while ( true );
-            
         }
 
         private void btnBlue_Click(object sender, RoutedEventArgs e)
         {
-            blync.ChangeToBlue();
+            blync.SetColor( BlyncControl.BlyncColor.Blue );
             timer.Stop();
         }
 
         private void btnGreen_Click(object sender, RoutedEventArgs e)
         {
-            blync.ChangeToGreen();
+            blync.SetColor( BlyncControl.BlyncColor.Green );
             timer.Stop();
         }
 
         private void btnRed_Click(object sender, RoutedEventArgs e)
         {
-            blync.ChangeToRed();
+            blync.SetColor( BlyncControl.BlyncColor.Red );
             timer.Stop();
         }
 
         private void btnYellow_Click(object sender, RoutedEventArgs e)
         {
-            blync.ChangeToYellow();
+            blync.SetColor( BlyncControl.BlyncColor.Yellow );
             timer.Stop();
         }
 
         private void btnPurple_Click(object sender, RoutedEventArgs e)
         {
-            blync.ChangeToPurple();
+            blync.SetColor( BlyncControl.BlyncColor.Purple );
             timer.Stop();
         }
 
@@ -144,7 +143,7 @@ namespace BetterBlync
         {
             blync.TurnOffLight();
             timer.Stop();
-            if(thread != null )
+            if ( thread != null )
             {
                 thread.Abort();
             }
@@ -160,23 +159,14 @@ namespace BetterBlync
         private void PartyOn()
         {
             int interval = 150;
-            int count = 5;
+            int count = 50;
             do
             {
-                System.Threading.Thread.Sleep( interval );
-                blync.ChangeToBlue();
-                System.Threading.Thread.Sleep( interval );
-                blync.ChangeToRed();
-                System.Threading.Thread.Sleep( interval );
-                blync.ChangeToPurple();
-                System.Threading.Thread.Sleep( interval );
-                blync.ChangeToCyan();
-                System.Threading.Thread.Sleep( interval );
-                blync.ChangeToYellow();
-                System.Threading.Thread.Sleep( interval );
-                blync.ChangeToWhite();
-                System.Threading.Thread.Sleep( interval );
-                blync.ChangeToGreen();
+                foreach ( BlyncControl.BlyncColor color in Enum.GetValues( typeof( BlyncControl.BlyncColor ) ) )
+                {
+                    System.Threading.Thread.Sleep( interval );
+                    blync.SetColor( color );
+                }
                 count--;
             } while ( count > 0 );
         }

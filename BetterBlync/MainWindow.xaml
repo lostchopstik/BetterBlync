@@ -9,8 +9,8 @@
         Title="MainWindow" Height="382" Width="185" MinWidth="185" MinHeight="382" Closing="Window_Closing">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FF0C3387" Offset="0"/>
-            <GradientStop Color="#FF696A6C" Offset="1"/>
+            <GradientStop Color="#FF0C3387" Offset="0" />
+            <GradientStop Color="#FF696A6C" Offset="1" />
         </LinearGradientBrush>
     </Window.Background>
     <StackPanel Margin="0" Width="150" VerticalAlignment="Center">
@@ -19,16 +19,16 @@
         <Button x:Name="btnBlue" Content="Blue" Click="btnBlue_Click" Margin="0,0,0,10" Height="30" Background="#FF0080FF" />
         <Button x:Name="btnYellow" Content="Yellow" Click="btnYellow_Click" Margin="0,0,0,10" Height="30" Background="#FFDCF015" />
         <Button x:Name="btnPurple" Content="Purple" Click="btnPurple_Click" Margin="0,0,0,10" Height="30" Background="#FF8B38C5" />
-        <Button x:Name="btnReset" Content="Reset" Click="btnReset_Click"  Height="30" Margin="0,0,0,10" BorderBrush="#FFD6F704" />
+        <Button x:Name="btnReset" Content="Reset / Auto On" Click="btnReset_Click"  Height="30" Margin="0,0,0,10" BorderBrush="#FFD6F704" />
         <Button x:Name="btnShutoff" Content="Turn Off" Click="btnShutoff_Click"  Height="30" Margin="0,0,0,10" BorderBrush="Red" />
-        <Button x:Name="btnParty" Content="Party" Click="btnParty_Click" Height="30" Foreground="White" >
+        <Button x:Name="btnParty" Content="Party" Click="btnParty_Click" Height="30" Foreground="White">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="#FFF3FF00" Offset="0"/>
-                    <GradientStop Color="#FFF11010" Offset="1"/>
-                    <GradientStop Color="#FF0C5DD1" Offset="0.515"/>
-                    <GradientStop Color="#FF3EDC10" Offset="0.237"/>
-                    <GradientStop Color="#FF8E12D4" Offset="0.783"/>
+                    <GradientStop Color="#FFF3FF00" Offset="0" />
+                    <GradientStop Color="#FFF11010" Offset="1" />
+                    <GradientStop Color="#FF0C5DD1" Offset="0.515" />
+                    <GradientStop Color="#FF3EDC10" Offset="0.237" />
+                    <GradientStop Color="#FF8E12D4" Offset="0.783" />
                 </LinearGradientBrush>
             </Button.Background>
         </Button>

@@ -7,6 +7,8 @@ namespace BetterBlync
         private BlynclightController blync;
         private int lightCount, deviceSelection;
 
+        public BlyncColor CurrentColor { get; private set; }
+
         public enum BlyncColor
         {
             Green,
@@ -22,7 +24,7 @@ namespace BetterBlync
         {
             blync = new BlynclightController();
             lightCount = findBlyncLights();
-            if(lightCount == 0 )
+            if ( lightCount == 0 )
             {
                 // TODO create custom exception
             }
@@ -31,11 +33,43 @@ namespace BetterBlync
             deviceSelection = 0;
 
             // Default color is green
-            ChangeToGreen();
+            changeToGreen();
             CurrentColor = BlyncColor.Green;
         }
 
-        public BlyncColor CurrentColor { get; private set; }
+        public void SetColor(BlyncColor color)
+        {
+            switch ( color )
+            {
+                case BlyncColor.Blue:
+                    changeToBlue();
+                    break;
+
+                case BlyncColor.Cyan:
+                    changeToCyan();
+                    break;
+
+                case BlyncColor.Green:
+                    changeToGreen();
+                    break;
+
+                case BlyncColor.Purple:
+                    changeToPurple();
+                    break;
+
+                case BlyncColor.Red:
+                    changeToRed();
+                    break;
+
+                case BlyncColor.White:
+                    changeToWhite();
+                    break;
+
+                case BlyncColor.Yellow:
+                    changeToYellow();
+                    break;
+            }
+        }
 
         private int findBlyncLights()
         {
@@ -47,43 +81,43 @@ namespace BetterBlync
             blync.CloseDevices( lightCount );
         }
 
-        public void ChangeToGreen()
+        private void changeToGreen()
         {
             blync.TurnOnGreenLight( deviceSelection );
             CurrentColor = BlyncColor.Green;
         }
 
-        public void ChangeToBlue()
+        private void changeToBlue()
         {
             blync.TurnOnBlueLight( deviceSelection );
             CurrentColor = BlyncColor.Blue;
         }
 
-        public void ChangeToCyan()
+        private void changeToCyan()
         {
             blync.TurnOnCyanLight( deviceSelection );
             CurrentColor = BlyncColor.Cyan;
         }
 
-        public void ChangeToWhite()
+        private void changeToWhite()
         {
-            blync.TurnOnWhiteLight(0);
+            blync.TurnOnWhiteLight( 0 );
             CurrentColor = BlyncColor.White;
         }
 
-        public void ChangeToYellow()
+        private void changeToYellow()
         {
             blync.TurnOnYellowLight( deviceSelection );
             CurrentColor = BlyncColor.Yellow;
         }
 
-        public void ChangeToPurple()
+        private void changeToPurple()
         {
             blync.TurnOnMagentaLight( deviceSelection );
             CurrentColor = BlyncColor.Purple;
         }
 
-        public void ChangeToRed()
+        private void changeToRed()
         {
             blync.TurnOnRedLight( deviceSelection );
             CurrentColor = BlyncColor.Red;
@@ -92,7 +126,7 @@ namespace BetterBlync
         public void ResetLight()
         {
             blync.ResetLight( deviceSelection );
-            ChangeToGreen();
+            changeToGreen();
             CurrentColor = BlyncColor.Green;
         }
 
