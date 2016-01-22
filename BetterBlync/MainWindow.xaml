@@ -1,25 +1,36 @@
-﻿<Window x:Class="BetterBlync.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BetterBlync"
+        xmlns:controls="clr-namespace:Microsoft.Lync.Controls;assembly=Microsoft.Lync.Controls" x:Class="BetterBlync.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="407.358" Width="262.898" MinWidth="125" MinHeight="195" Closing="Window_Closing">
+        Title="MainWindow" Height="382" Width="185" MinWidth="185" MinHeight="382" Closing="Window_Closing">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FF287985" Offset="0"/>
-            <GradientStop Color="#FFC3C3C3" Offset="1"/>
+            <GradientStop Color="#FF0C3387" Offset="0"/>
+            <GradientStop Color="#FF696A6C" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
-    <StackPanel Margin="0" VerticalAlignment="Center" Width="150">
-        <Button x:Name="btnGreen" Content="Green" Click="btnGreen_Click" Margin="0,0,0,10" Height="30" />
-        <Button x:Name="btnRed" Content="Red" Click="btnRed_Click" Margin="0,0,0,10" Height="30" />
-        <Button x:Name="btnBlue" Content="Blue" Click="btnBlue_Click" Margin="0,0,0,10" Height="30" />
-        <Button x:Name="btnYellow" Content="Yellow" Click="btnYellow_Click" Margin="0,0,0,10" Height="30" />
-        <Button x:Name="btnPurple" Content="Purple" Click="btnPurple_Click" Margin="0,0,0,10" Height="30" />
-        <Button x:Name="btnReset" Content="Reset" Click="btnReset_Click"  Height="30" Margin="0,0,0,10" />
-        <Button x:Name="btnShutoff" Content="Turn Off" Click="btnShutoff_Click"  Height="30" Margin="0,0,0,10" />
-        <Button x:Name="btnParty" Content="Party" Click="btnParty_Click" Height="30" />
+    <StackPanel Margin="0" Width="150" VerticalAlignment="Center">
+        <Button x:Name="btnGreen" Content="Green" Click="btnGreen_Click" Margin="0,0,0,10" Height="30" Background="#FF5BE229" />
+        <Button x:Name="btnRed" Content="Red" Click="btnRed_Click" Margin="0,0,0,10" Height="30" Background="#FFC71C1C" />
+        <Button x:Name="btnBlue" Content="Blue" Click="btnBlue_Click" Margin="0,0,0,10" Height="30" Background="#FF0080FF" />
+        <Button x:Name="btnYellow" Content="Yellow" Click="btnYellow_Click" Margin="0,0,0,10" Height="30" Background="#FFDCF015" />
+        <Button x:Name="btnPurple" Content="Purple" Click="btnPurple_Click" Margin="0,0,0,10" Height="30" Background="#FF8B38C5" />
+        <Button x:Name="btnReset" Content="Reset" Click="btnReset_Click"  Height="30" Margin="0,0,0,10" BorderBrush="#FFD6F704" />
+        <Button x:Name="btnShutoff" Content="Turn Off" Click="btnShutoff_Click"  Height="30" Margin="0,0,0,10" BorderBrush="Red" />
+        <Button x:Name="btnParty" Content="Party" Click="btnParty_Click" Height="30" Foreground="White" >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FFF3FF00" Offset="0"/>
+                    <GradientStop Color="#FFF11010" Offset="1"/>
+                    <GradientStop Color="#FF0C5DD1" Offset="0.515"/>
+                    <GradientStop Color="#FF3EDC10" Offset="0.237"/>
+                    <GradientStop Color="#FF8E12D4" Offset="0.783"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
     </StackPanel>
 </Window>

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Blynclight;
+﻿using Blynclight;
 
 namespace BetterBlync
 {
@@ -16,9 +11,11 @@ namespace BetterBlync
         {
             Green,
             Blue,
+            Cyan,
             Purple,
             Yellow,
-            Red
+            Red,
+            White
         }
 
         public BlyncControl()
@@ -60,6 +57,18 @@ namespace BetterBlync
         {
             blync.TurnOnBlueLight( deviceSelection );
             CurrentColor = BlyncColor.Blue;
+        }
+
+        public void ChangeToCyan()
+        {
+            blync.TurnOnCyanLight( deviceSelection );
+            CurrentColor = BlyncColor.Cyan;
+        }
+
+        public void ChangeToWhite()
+        {
+            blync.TurnOnWhiteLight(0);
+            CurrentColor = BlyncColor.White;
         }
 
         public void ChangeToYellow()
