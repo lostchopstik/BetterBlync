@@ -17,7 +17,8 @@ namespace BetterBlync
             Purple,
             Yellow,
             Red,
-            White
+            White,
+            None
         }
 
         public BlyncControl()
@@ -144,6 +145,7 @@ namespace BetterBlync
             for ( int i = lightCount; i >= 0; i-- )
                 blync.ResetLight( i );
 
+            CurrentColor = BlyncColor.None;
             changeToGreen();
         }
 
@@ -151,6 +153,8 @@ namespace BetterBlync
         {
             for ( int i = lightCount; i >= 0; i-- )
                 blync.ResetLight( i );
+
+            CurrentColor = BlyncColor.None;
         }
     }
 }

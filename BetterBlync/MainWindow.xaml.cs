@@ -89,15 +89,18 @@ namespace BetterBlync
             switch ( lync.LyncAvailability )
             {
                 case ContactAvailability.Free:
-                    blync.SetColor( BlyncControl.BlyncColor.Green );
+                    if ( blync.CurrentColor != BlyncControl.BlyncColor.Green )
+                        blync.SetColor( BlyncControl.BlyncColor.Green );
                     break;
 
                 case ContactAvailability.Busy:
-                    blync.SetColor( BlyncControl.BlyncColor.Red );
+                    if ( blync.CurrentColor != BlyncControl.BlyncColor.Red )
+                        blync.SetColor( BlyncControl.BlyncColor.Red );
                     break;
 
                 case ContactAvailability.DoNotDisturb:
-                    blync.SetColor( BlyncControl.BlyncColor.Purple );
+                    if ( blync.CurrentColor != BlyncControl.BlyncColor.Purple )
+                        blync.SetColor( BlyncControl.BlyncColor.Purple );
                     break;
 
                 case ContactAvailability.Offline:
@@ -107,11 +110,13 @@ namespace BetterBlync
                 case ContactAvailability.FreeIdle:
                 case ContactAvailability.TemporarilyAway:
                 case ContactAvailability.Away:
-                    blync.SetColor( BlyncControl.BlyncColor.Yellow );
+                    if ( blync.CurrentColor != BlyncControl.BlyncColor.Yellow )
+                        blync.SetColor( BlyncControl.BlyncColor.Yellow );
                     break;
 
                 default:
-                    blync.SetColor( BlyncControl.BlyncColor.Green );
+                    if ( blync.CurrentColor != BlyncControl.BlyncColor.Green )
+                        blync.SetColor( BlyncControl.BlyncColor.Green );
                     break;
             }
         }
@@ -212,11 +217,6 @@ namespace BetterBlync
                     System.Threading.Thread.Sleep( interval );
                     blync.SetColor( color );
                 }
-
-                //System.Threading.Thread.Sleep( interval );
-                //blync.SetColor( BlyncControl.BlyncColor.Blue );
-                //System.Threading.Thread.Sleep( interval );
-                //blync.SetColor( BlyncControl.BlyncColor.Red );
                 count--;
             } while ( count > 0 );
             threadRunning = false;
