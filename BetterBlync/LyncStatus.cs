@@ -6,6 +6,7 @@ namespace BetterBlync
     public class LyncStatus
     {
         private LyncClient lyncClient;
+        private bool callNotify = false;
         public ContactAvailability LyncAvailability { get; private set; }
         public bool InACall { get; private set; }
         public bool NewMessage { get; set; }
@@ -37,9 +38,15 @@ namespace BetterBlync
         private void LyncStatus_AVStatus(object sender, Microsoft.Lync.Model.Conversation.ModalityStateChangedEventArgs e)
         {
             if ( e.NewState == Microsoft.Lync.Model.Conversation.ModalityState.Notified )
+            {
                 InACall = true;
+                callNotify = true;
+            }
             else if ( e.NewState == Microsoft.Lync.Model.Conversation.ModalityState.Disconnected )
+            {
                 InACall = false;
+                callNotify = false;
+            }
         }
 
         private void LyncStatus_IMStatus(object sender, Microsoft.Lync.Model.Conversation.ModalityStateChangedEventArgs e)
@@ -63,7 +70,8 @@ namespace BetterBlync
             // Get the current activity string from the client
             string activity = (string)contact.GetContactInformation( ContactInformationType.Activity );
 
-            if ( activity.Equals( "In a call" ) )
+            // Check the activity string to see if user is currently in a call, and check that a call isnt currently incoming
+            if ( activity.Equals( "In a call" ) || callNotify )
                 InACall = true;
             else
                 InACall = false;

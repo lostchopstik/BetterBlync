@@ -26,11 +26,19 @@ namespace BetterBlync
         public MainWindow()
         {
             InitializeComponent();
-            blync = new BlyncControl();
-            lync = new LyncStatus();
-            setStatusLight();
-            lastKnownAvailability = lync.LyncAvailability;
-            initTimer();
+            try
+            {
+                blync = new BlyncControl();
+                lync = new LyncStatus();
+                setStatusLight();
+                lastKnownAvailability = lync.LyncAvailability;
+                initTimer();
+            }
+            catch ( Exception ex )
+            {
+                MessageBox.Show( $"Something went wrong!\nError: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error );
+                Close();
+            }
         }
 
         private void initTimer()
@@ -45,15 +53,15 @@ namespace BetterBlync
         {
             // Check to see if any new lights are connected
             blync.FindBlyncLights();
+
             // Get current status from Lync client
             lync.GetStatus();
-            // Check if availability has changed to prevent wear to the light
-            if ( lastKnownAvailability != lync.LyncAvailability || lync.NewMessage || lync.InACall )
-            {
-                lastKnownAvailability = lync.LyncAvailability;
-                // Change to new color
-                setStatusLight();
-            }
+
+            // Store the last color
+            lastKnownAvailability = lync.LyncAvailability;
+
+            // Change to new color
+            setStatusLight();
         }
 
         private void setStatusLight()
@@ -69,6 +77,7 @@ namespace BetterBlync
                     else if ( lync.NewMessage )
                         thread = new System.Threading.Thread( () => flashRedLight( AlertType.IM ) );
                     thread.Start();
+                    return;
                 }
                 else return;
             }
@@ -215,7 +224,8 @@ namespace BetterBlync
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            blync.CloseDevices();
+            if ( blync != null )
+                blync.CloseDevices();
         }
     }
 }

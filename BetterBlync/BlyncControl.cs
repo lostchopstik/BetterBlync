@@ -27,6 +27,7 @@ namespace BetterBlync
             if ( lightCount == 0 )
             {
                 // TODO create custom exception
+                throw new System.Exception( "Could not find any Blync lights." );
             }
 
             // Default color is green
