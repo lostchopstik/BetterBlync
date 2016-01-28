@@ -15,7 +15,7 @@ namespace BetterBlync
         private DispatcherTimer timer;
         private ContactAvailability lastKnownAvailability;
         private System.Threading.Thread thread;
-        private bool threadRunning = false;
+        private bool threadRunning = false, firstMinimizeShown = false;
 
         private enum AlertType
         {
@@ -226,6 +226,37 @@ namespace BetterBlync
         {
             if ( blync != null )
                 blync.CloseDevices();
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            string title = "Better Blync";
+            string message = "Better Blync is still running in the background...";
+            if ( WindowState == WindowState.Minimized )
+            {
+                if ( !firstMinimizeShown )
+                {
+                    firstMinimizeShown = true;
+                    blyncNotifyIcon.ShowBalloonTip( title, message, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Info );
+                }
+
+                ShowInTaskbar = false;
+            }
+            else
+            {
+                ShowInTaskbar = true;
+            }
+        }
+
+        private void cntxExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void blyncNotifyIcon_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            // Return window to screen when tray icon is double clicked
+            WindowState = WindowState.Normal;
         }
     }
 }

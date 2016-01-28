@@ -7,7 +7,7 @@
         xmlns:controls="clr-namespace:Microsoft.Lync.Controls;assembly=Microsoft.Lync.Controls" x:Class="BetterBlync.MainWindow"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="Better Blync" Height="382" Width="185" MinWidth="185" MinHeight="382" Closing="Window_Closing" Icon="betterblync.ico">
+        Title="Better Blync" Height="382" Width="185" MinWidth="185" MinHeight="382" Closing="Window_Closing" Icon="betterblync.ico" StateChanged="Window_StateChanged">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF0C3387" Offset="0" />
@@ -34,14 +34,20 @@
             </Button.Background>
         </Button>
 
+        <!--Tray icon initialization-->
         <tb:TaskbarIcon x:Name="blyncNotifyIcon"
                     Visibility="Visible"
                     ToolTipText="Better Blync"
                     IconSource="/betterblync.ico"
-                    ContextMenu="{StaticResource TrayMenu}"
                     MenuActivation="LeftOrRightClick"
-                    TrayPopup="{StaticResource TrayStatusPopup}"
                     PopupActivation="DoubleClick"
-                    TrayToolTip="{StaticResource TrayToolTip}" />
+                    TrayMouseDoubleClick="blyncNotifyIcon_TrayMouseDoubleClick">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu Background="White">
+                    <MenuItem Header="Open" Name="cntxOpen" Click="blyncNotifyIcon_TrayMouseDoubleClick"></MenuItem>
+                    <MenuItem Header="Quit" Name="cntxExit" Click="cntxExit_Click"></MenuItem>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
     </StackPanel>
 </Window>
