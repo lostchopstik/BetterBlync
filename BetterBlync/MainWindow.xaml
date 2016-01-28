@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BetterBlync"
         xmlns:controls="clr-namespace:Microsoft.Lync.Controls;assembly=Microsoft.Lync.Controls" x:Class="BetterBlync.MainWindow"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="MainWindow" Height="382" Width="185" MinWidth="185" MinHeight="382" Closing="Window_Closing">
+        Title="Better Blync" Height="382" Width="185" MinWidth="185" MinHeight="382" Closing="Window_Closing" Icon="betterblync.ico">
+    <!--<tb:TaskbarIcon x:Name="blyncNotifyIcon"
+                    Visibility="Visible"
+                    ToolTipText="Better Blync"
+                    IconSource=""
+                    ContextMenu="{StaticResource TrayMenu}" />-->
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF0C3387" Offset="0" />
