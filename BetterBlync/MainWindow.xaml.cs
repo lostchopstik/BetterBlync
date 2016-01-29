@@ -16,6 +16,7 @@ namespace BetterBlync
         private ContactAvailability lastKnownAvailability;
         private System.Threading.Thread thread;
         private bool threadRunning = false, firstMinimizeShown = false;
+        private BlyncControl.BlyncColor IncomingCall, IncomingIM, Available, Busy, Away, DoNotDisturb;
 
         private enum AlertType
         {
@@ -33,12 +34,23 @@ namespace BetterBlync
                 setStatusLight();
                 lastKnownAvailability = lync.LyncAvailability;
                 initTimer();
+                initSettings();
             }
             catch ( Exception ex )
             {
                 MessageBox.Show( $"Something went wrong!\nError: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error );
                 Close();
             }
+        }
+
+        private void initSettings()
+        {
+            IncomingCall = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_IncomingCall );
+            IncomingIM = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_IncomingIM );
+            Available = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_Available );
+            Busy = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_Busy );
+            Away = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_Away );
+            DoNotDisturb = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_DoNotDisturb );
         }
 
         private void initTimer()
@@ -73,9 +85,9 @@ namespace BetterBlync
                 {
                     threadRunning = true;
                     if ( lync.InACall )
-                        thread = new System.Threading.Thread( () => flashRedLight( AlertType.Call ) );
+                        thread = new System.Threading.Thread( () => flashLight( AlertType.Call ) );
                     else if ( lync.NewMessage )
-                        thread = new System.Threading.Thread( () => flashRedLight( AlertType.IM ) );
+                        thread = new System.Threading.Thread( () => flashLight( AlertType.IM ) );
                     thread.Start();
                     return;
                 }
@@ -89,18 +101,18 @@ namespace BetterBlync
             switch ( lync.LyncAvailability )
             {
                 case ContactAvailability.Free:
-                    if ( blync.CurrentColor != BlyncControl.BlyncColor.Green )
-                        blync.SetColor( BlyncControl.BlyncColor.Green );
+                    if ( blync.CurrentColor != Available )
+                        blync.SetColor( Available );
                     break;
 
                 case ContactAvailability.Busy:
-                    if ( blync.CurrentColor != BlyncControl.BlyncColor.Red )
-                        blync.SetColor( BlyncControl.BlyncColor.Red );
+                    if ( blync.CurrentColor != Busy )
+                        blync.SetColor( Busy );
                     break;
 
                 case ContactAvailability.DoNotDisturb:
-                    if ( blync.CurrentColor != BlyncControl.BlyncColor.Purple )
-                        blync.SetColor( BlyncControl.BlyncColor.Purple );
+                    if ( blync.CurrentColor != DoNotDisturb )
+                        blync.SetColor( DoNotDisturb );
                     break;
 
                 case ContactAvailability.Offline:
@@ -110,8 +122,8 @@ namespace BetterBlync
                 case ContactAvailability.FreeIdle:
                 case ContactAvailability.TemporarilyAway:
                 case ContactAvailability.Away:
-                    if ( blync.CurrentColor != BlyncControl.BlyncColor.Yellow )
-                        blync.SetColor( BlyncControl.BlyncColor.Yellow );
+                    if ( blync.CurrentColor != Away )
+                        blync.SetColor( Away );
                     break;
 
                 default:
@@ -121,13 +133,13 @@ namespace BetterBlync
             }
         }
 
-        private void flashRedLight(AlertType type)
+        private void flashLight(AlertType type)
         {
             if ( type == AlertType.Call )
             {
                 do
                 {
-                    blync.SetColor( BlyncControl.BlyncColor.Red );
+                    blync.SetColor( IncomingCall );
                     System.Threading.Thread.Sleep( 400 );
                     blync.TurnOffLight();
                     System.Threading.Thread.Sleep( 400 );
@@ -138,7 +150,7 @@ namespace BetterBlync
             {
                 do
                 {
-                    blync.SetColor( BlyncControl.BlyncColor.Red );
+                    blync.SetColor( IncomingIM );
                     System.Threading.Thread.Sleep( 400 );
                     blync.TurnOffLight();
                     System.Threading.Thread.Sleep( 400 );
@@ -146,36 +158,6 @@ namespace BetterBlync
                 while ( lync.NewMessage );
             }
             threadRunning = false;
-        }
-
-        private void btnBlue_Click(object sender, RoutedEventArgs e)
-        {
-            blync.SetColor( BlyncControl.BlyncColor.Blue );
-            timer.Stop();
-        }
-
-        private void btnGreen_Click(object sender, RoutedEventArgs e)
-        {
-            blync.SetColor( BlyncControl.BlyncColor.Green );
-            timer.Stop();
-        }
-
-        private void btnRed_Click(object sender, RoutedEventArgs e)
-        {
-            blync.SetColor( BlyncControl.BlyncColor.Red );
-            timer.Stop();
-        }
-
-        private void btnYellow_Click(object sender, RoutedEventArgs e)
-        {
-            blync.SetColor( BlyncControl.BlyncColor.Yellow );
-            timer.Stop();
-        }
-
-        private void btnPurple_Click(object sender, RoutedEventArgs e)
-        {
-            blync.SetColor( BlyncControl.BlyncColor.Purple );
-            timer.Stop();
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
@@ -196,30 +178,6 @@ namespace BetterBlync
             {
                 thread.Abort();
             }
-        }
-
-        private void btnParty_Click(object sender, RoutedEventArgs e)
-        {
-            timer.Stop();
-            threadRunning = true;
-            thread = new System.Threading.Thread( PartyOn );
-            thread.Start();
-        }
-
-        private void PartyOn()
-        {
-            int interval = 150;
-            int count = 500;
-            do
-            {
-                foreach ( BlyncControl.BlyncColor color in Enum.GetValues( typeof( BlyncControl.BlyncColor ) ) )
-                {
-                    System.Threading.Thread.Sleep( interval );
-                    blync.SetColor( color );
-                }
-                count--;
-            } while ( count > 0 );
-            threadRunning = false;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

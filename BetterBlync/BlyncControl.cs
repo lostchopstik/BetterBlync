@@ -14,7 +14,7 @@ namespace BetterBlync
             Green,
             Blue,
             Cyan,
-            Purple,
+            Magenta,
             Yellow,
             Red,
             White,
@@ -56,8 +56,8 @@ namespace BetterBlync
                     changeToGreen();
                     break;
 
-                case BlyncColor.Purple:
-                    changeToPurple();
+                case BlyncColor.Magenta:
+                    changeToMagenta();
                     break;
 
                 case BlyncColor.Red:
@@ -124,12 +124,12 @@ namespace BetterBlync
             CurrentColor = BlyncColor.Yellow;
         }
 
-        private void changeToPurple()
+        private void changeToMagenta()
         {
             for ( int i = lightCount; i >= 0; i-- )
                 blync.TurnOnMagentaLight( i );
 
-            CurrentColor = BlyncColor.Purple;
+            CurrentColor = BlyncColor.Magenta;
         }
 
         private void changeToRed()

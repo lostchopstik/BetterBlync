@@ -8,22 +8,90 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BetterBlync.Properties
-{
-
-
+namespace BetterBlync.Properties {
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute( "Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0" )]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
-    {
-
-        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized( new Settings() )));
-
-        public static Settings Default
-        {
-            get
-            {
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        
+        public static Settings Default {
+            get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public string Color_IncomingCall {
+            get {
+                return ((string)(this["Color_IncomingCall"]));
+            }
+            set {
+                this["Color_IncomingCall"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public string Color_IncomingIM {
+            get {
+                return ((string)(this["Color_IncomingIM"]));
+            }
+            set {
+                this["Color_IncomingIM"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Green")]
+        public string Color_Available {
+            get {
+                return ((string)(this["Color_Available"]));
+            }
+            set {
+                this["Color_Available"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public string Color_Busy {
+            get {
+                return ((string)(this["Color_Busy"]));
+            }
+            set {
+                this["Color_Busy"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yellow")]
+        public string Color_Away {
+            get {
+                return ((string)(this["Color_Away"]));
+            }
+            set {
+                this["Color_Away"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Magenta")]
+        public string Color_DoNotDisturb {
+            get {
+                return ((string)(this["Color_DoNotDisturb"]));
+            }
+            set {
+                this["Color_DoNotDisturb"] = value;
             }
         }
     }
