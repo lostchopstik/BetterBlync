@@ -1,5 +1,6 @@
 ﻿using Microsoft.Lync.Model;
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -13,8 +14,9 @@ namespace BetterBlync
         private BlyncControl blync;
         private LyncStatus lync;
         private DispatcherTimer timer;
-        private ContactAvailability lastKnownAvailability;
-        private System.Threading.Thread thread;
+        private Thread thread;
+        private int count = 0;
+
         private bool threadRunning = false, firstMinimizeShown = false;
         private BlyncControl.BlyncColor IncomingCall, IncomingIM, Available, Busy, Away, DoNotDisturb;
 
@@ -32,7 +34,6 @@ namespace BetterBlync
                 blync = new BlyncControl();
                 lync = new LyncStatus();
                 setStatusLight();
-                lastKnownAvailability = lync.LyncAvailability;
                 initTimer();
                 initSettings();
             }
@@ -57,7 +58,7 @@ namespace BetterBlync
         {
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan( 0, 0, 0, 0, 200 );
-            timer.Tick += Timer_Tick;
+            timer.Tick += new EventHandler( Timer_Tick );
             timer.Start();
         }
 
@@ -69,11 +70,14 @@ namespace BetterBlync
             // Get current status from Lync client
             lync.GetStatus();
 
-            // Store the last color
-            lastKnownAvailability = lync.LyncAvailability;
-
             // Change to new color
             setStatusLight();
+
+            if ( count++ == 100 )
+            {
+                count = 0;
+                GC.Collect();
+            }
         }
 
         private void setStatusLight()
@@ -85,9 +89,9 @@ namespace BetterBlync
                 {
                     threadRunning = true;
                     if ( lync.InACall )
-                        thread = new System.Threading.Thread( () => flashLight( AlertType.Call ) );
+                        thread = new Thread( () => flashLight( AlertType.Call ) );
                     else if ( lync.NewMessage )
-                        thread = new System.Threading.Thread( () => flashLight( AlertType.IM ) );
+                        thread = new Thread( () => flashLight( AlertType.IM ) );
                     thread.Start();
                     return;
                 }
@@ -158,6 +162,17 @@ namespace BetterBlync
                 while ( lync.NewMessage );
             }
             threadRunning = false;
+        }
+
+        private void cbIncomingCall_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            string newColor = cbIncomingCall.SelectedValue.ToString();
+            newColor = newColor.Substring( newColor.LastIndexOf( ' ' ) ).Trim();
+
+            IncomingCall = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), newColor ); ;
+
+            Properties.Settings.Default["Color_IncomingCall"] = newColor;
+            Properties.Settings.Default.Save();
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)

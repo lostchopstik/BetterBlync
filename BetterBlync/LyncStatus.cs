@@ -7,6 +7,8 @@ namespace BetterBlync
     {
         private LyncClient lyncClient;
         private bool callNotify = false;
+        private string activity;
+        private Contact contact;
         public ContactAvailability LyncAvailability { get; private set; }
         public bool InACall { get; private set; }
         public bool NewMessage { get; set; }
@@ -64,11 +66,11 @@ namespace BetterBlync
         public ContactAvailability GetStatus()
         {
             // Get the contact information for the current signed in user
-            Contact contact = lyncClient.Self.Contact;
+            contact = lyncClient.Self.Contact;
 
             // Availability and activity must both be used or activity by itself, but it returns a string rather than an enum like the latter
             // Get the current activity string from the client
-            string activity = (string)contact.GetContactInformation( ContactInformationType.Activity );
+            activity = (string)contact.GetContactInformation( ContactInformationType.Activity );
 
             // Check the activity string to see if user is currently in a call, and check that a call isnt currently incoming
             if ( activity.Equals( "In a call" ) || callNotify )
