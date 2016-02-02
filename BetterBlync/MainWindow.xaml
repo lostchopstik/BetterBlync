@@ -20,7 +20,7 @@
         <!--Dropdown Panels-->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Incoming Call" FontSize="18.667" FontWeight="Bold" Foreground="#FFC1C1C1" />
-            <ComboBox x:Name="cbIncomingCall" Width="150" FontFamily="Trebuchet MS" FontSize="18.667" SelectedItem="Red" SelectionChanged="cbIncomingCall_SelectionChanged">
+            <ComboBox x:Name="cbIncomingCall" Width="150" FontFamily="Trebuchet MS" FontSize="18.667" SelectionChanged="cbIncomingCall_SelectionChanged">
                 <ComboBoxItem Background="#FFFD0909" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Red</ComboBoxItem>
                 <ComboBoxItem Background="#FFE7FD0A" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Yellow</ComboBoxItem>
                 <ComboBoxItem Background="#FF14FD09" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Green</ComboBoxItem>
@@ -31,7 +31,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Incoming Message" FontSize="18.667" FontWeight="Bold" Foreground="#FFC1C1C1" />
-            <ComboBox Width="150">
+            <ComboBox x:Name="cbIncomingMessage" Width="150" FontFamily="Trebuchet MS" FontSize="18.667" SelectionChanged="cbIncomingMessage_SelectionChanged">
                 <MenuItem Background="#FFFD0909" Width="140" />
                 <MenuItem Background="#FFE7FD0A" Width="140" />
                 <MenuItem Background="#FF14FD09" Width="140" />

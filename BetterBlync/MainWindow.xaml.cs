@@ -11,11 +11,10 @@ namespace BetterBlync
     /// </summary>
     public partial class MainWindow : Window
     {
-        private BlyncControl blync;
-        private LyncStatus lync;
+        private BlyncControl blync = new BlyncControl();
+        private LyncStatus lync = new LyncStatus();
         private DispatcherTimer timer;
         private Thread thread;
-        private int count = 0;
 
         private bool threadRunning = false, firstMinimizeShown = false;
         private BlyncControl.BlyncColor IncomingCall, IncomingIM, Available, Busy, Away, DoNotDisturb;
@@ -31,8 +30,6 @@ namespace BetterBlync
             InitializeComponent();
             try
             {
-                blync = new BlyncControl();
-                lync = new LyncStatus();
                 setStatusLight();
                 initTimer();
                 initSettings();
@@ -47,11 +44,15 @@ namespace BetterBlync
         private void initSettings()
         {
             IncomingCall = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_IncomingCall );
+            cbIncomingCall.SelectedItem = "Red";
             IncomingIM = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_IncomingIM );
             Available = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_Available );
             Busy = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_Busy );
             Away = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_Away );
             DoNotDisturb = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_DoNotDisturb );
+
+            blync = new BlyncControl();
+            lync = new LyncStatus();
         }
 
         private void initTimer()
@@ -65,19 +66,13 @@ namespace BetterBlync
         private void Timer_Tick(object sender, EventArgs e)
         {
             // Check to see if any new lights are connected
-            blync.FindBlyncLights();
+            // blync.FindBlyncLights();
 
             // Get current status from Lync client
             lync.GetStatus();
 
             // Change to new color
             setStatusLight();
-
-            if ( count++ == 100 )
-            {
-                count = 0;
-                GC.Collect();
-            }
         }
 
         private void setStatusLight()
@@ -175,8 +170,20 @@ namespace BetterBlync
             Properties.Settings.Default.Save();
         }
 
+        private void cbIncomingMessage_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            string newColor = cbIncomingCall.SelectedValue.ToString();
+            newColor = newColor.Substring( newColor.LastIndexOf( ' ' ) ).Trim();
+
+            IncomingCall = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), newColor ); ;
+
+            Properties.Settings.Default["Color_IncomingIM"] = newColor;
+            Properties.Settings.Default.Save();
+        }
+
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
+            blync.FindBlyncLights();
             blync.ResetLight();
             timer.Start();
             if ( thread != null )

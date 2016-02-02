@@ -1,10 +1,11 @@
 ﻿using Blynclight;
+using System;
 
 namespace BetterBlync
 {
-    public class BlyncControl
+    public class BlyncControl : IDisposable
     {
-        private BlynclightController blync;
+        private BlynclightController blync = new BlynclightController();
         private int lightCount;
 
         public BlyncColor CurrentColor { get; private set; }
@@ -23,7 +24,6 @@ namespace BetterBlync
 
         public BlyncControl()
         {
-            blync = new BlynclightController();
             lightCount = FindBlyncLights();
             if ( lightCount == 0 )
             {
@@ -34,6 +34,7 @@ namespace BetterBlync
             // Default color is green
             changeToGreen();
             CurrentColor = BlyncColor.Green;
+            blync.CloseDevices( lightCount );
         }
 
         /// <summary>
@@ -72,6 +73,8 @@ namespace BetterBlync
                     changeToYellow();
                     break;
             }
+
+            blync.CloseDevices( lightCount );
         }
 
         public int FindBlyncLights()
@@ -87,7 +90,10 @@ namespace BetterBlync
         private void changeToGreen()
         {
             for ( int i = lightCount; i >= 0; i-- )
-                blync.TurnOnGreenLight( i );
+            {
+                if ( CurrentColor != BlyncColor.Green )
+                    blync.TurnOnGreenLight( i );
+            }
 
             CurrentColor = BlyncColor.Green;
         }
@@ -95,7 +101,10 @@ namespace BetterBlync
         private void changeToBlue()
         {
             for ( int i = lightCount; i >= 0; i-- )
-                blync.TurnOnBlueLight( i );
+            {
+                if ( CurrentColor != BlyncColor.Blue )
+                    blync.TurnOnBlueLight( i );
+            }
 
             CurrentColor = BlyncColor.Blue;
         }
@@ -103,7 +112,10 @@ namespace BetterBlync
         private void changeToCyan()
         {
             for ( int i = lightCount; i >= 0; i-- )
-                blync.TurnOnCyanLight( i );
+            {
+                if ( CurrentColor != BlyncColor.Cyan )
+                    blync.TurnOnCyanLight( i );
+            }
 
             CurrentColor = BlyncColor.Cyan;
         }
@@ -111,7 +123,10 @@ namespace BetterBlync
         private void changeToWhite()
         {
             for ( int i = lightCount; i >= 0; i-- )
-                blync.TurnOnWhiteLight( 0 );
+            {
+                if ( CurrentColor != BlyncColor.White )
+                    blync.TurnOnWhiteLight( i );
+            }
 
             CurrentColor = BlyncColor.White;
         }
@@ -119,7 +134,10 @@ namespace BetterBlync
         private void changeToYellow()
         {
             for ( int i = lightCount; i >= 0; i-- )
-                blync.TurnOnYellowLight( i );
+            {
+                if ( CurrentColor != BlyncColor.Yellow )
+                    blync.TurnOnYellowLight( i );
+            }
 
             CurrentColor = BlyncColor.Yellow;
         }
@@ -127,7 +145,10 @@ namespace BetterBlync
         private void changeToMagenta()
         {
             for ( int i = lightCount; i >= 0; i-- )
-                blync.TurnOnMagentaLight( i );
+            {
+                if ( CurrentColor != BlyncColor.Magenta )
+                    blync.TurnOnMagentaLight( i );
+            }
 
             CurrentColor = BlyncColor.Magenta;
         }
@@ -135,7 +156,10 @@ namespace BetterBlync
         private void changeToRed()
         {
             for ( int i = lightCount; i >= 0; i-- )
-                blync.TurnOnRedLight( i );
+            {
+                if ( CurrentColor != BlyncColor.Red )
+                    blync.TurnOnRedLight( i );
+            }
 
             CurrentColor = BlyncColor.Red;
         }
@@ -147,6 +171,7 @@ namespace BetterBlync
 
             CurrentColor = BlyncColor.None;
             changeToGreen();
+            blync.CloseDevices( lightCount );
         }
 
         public void TurnOffLight()
@@ -155,6 +180,13 @@ namespace BetterBlync
                 blync.ResetLight( i );
 
             CurrentColor = BlyncColor.None;
+            blync.CloseDevices( lightCount );
+        }
+
+        public void Dispose()
+        {
+            blync = null;
+            lightCount = 0;
         }
     }
 }

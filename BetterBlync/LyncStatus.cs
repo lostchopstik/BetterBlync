@@ -3,12 +3,13 @@ using System;
 
 namespace BetterBlync
 {
-    public class LyncStatus
+    public class LyncStatus : IDisposable
     {
-        private LyncClient lyncClient;
+        private LyncClient lyncClient = LyncClient.GetClient();
         private bool callNotify = false;
         private string activity;
         private Contact contact;
+        private object prescence;
         public ContactAvailability LyncAvailability { get; private set; }
         public bool InACall { get; private set; }
         public bool NewMessage { get; set; }
@@ -20,7 +21,6 @@ namespace BetterBlync
 
         private void getClient()
         {
-            lyncClient = LyncClient.GetClient();
             if ( lyncClient != null && lyncClient.State == ClientState.SignedIn )
             {
                 GetStatus();
@@ -79,10 +79,19 @@ namespace BetterBlync
                 InACall = false;
 
             // Get the current prescence enum from the client
-            var prescence = contact.GetContactInformation( ContactInformationType.Availability );
+            prescence = contact.GetContactInformation( ContactInformationType.Availability );
             LyncAvailability = (ContactAvailability)Enum.Parse( typeof( ContactAvailability ), prescence.ToString() );
+            prescence = null;
 
             return LyncAvailability;
+        }
+
+        public void Dispose()
+        {
+            lyncClient = null;
+            activity = string.Empty;
+            contact = null;
+            prescence = null;
         }
     }
 }
