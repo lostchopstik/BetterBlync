@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace BetterBlync
@@ -43,14 +44,23 @@ namespace BetterBlync
 
         private void initSettings()
         {
+            // Read in saved color settings
             IncomingCall = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_IncomingCall );
-            cbIncomingCall.SelectedItem = "Red";
             IncomingIM = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_IncomingIM );
             Available = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_Available );
             Busy = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_Busy );
             Away = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_Away );
             DoNotDisturb = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), Properties.Settings.Default.Color_DoNotDisturb );
 
+            // Set dropdowns to saved setting values
+            cbIncomingCall.SelectedValue = IncomingCall.ToString();
+            cbIncomingMessage.SelectedValue = IncomingIM.ToString();
+            cbAvailable.SelectedValue = Available.ToString();
+            cbBusy.SelectedValue = Busy.ToString();
+            cbAway.SelectedValue = Away.ToString();
+            cbDoNotDisturb.SelectedValue = DoNotDisturb.ToString();
+
+            // Initialize light control and Lync integration
             blync = new BlyncControl();
             lync = new LyncStatus();
         }
@@ -161,8 +171,8 @@ namespace BetterBlync
 
         private void cbIncomingCall_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            if ( cbIncomingCall.SelectedValue == null ) return;
             string newColor = cbIncomingCall.SelectedValue.ToString();
-            newColor = newColor.Substring( newColor.LastIndexOf( ' ' ) ).Trim();
 
             IncomingCall = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), newColor ); ;
 
@@ -172,12 +182,56 @@ namespace BetterBlync
 
         private void cbIncomingMessage_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            string newColor = cbIncomingCall.SelectedValue.ToString();
-            newColor = newColor.Substring( newColor.LastIndexOf( ' ' ) ).Trim();
+            if ( cbIncomingMessage.SelectedValue == null ) return;
+            string newColor = cbIncomingMessage.SelectedValue.ToString();
 
-            IncomingCall = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), newColor ); ;
+            IncomingIM = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), newColor ); ;
 
             Properties.Settings.Default["Color_IncomingIM"] = newColor;
+            Properties.Settings.Default.Save();
+        }
+
+        private void cbAvailable_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if ( cbAvailable.SelectedValue == null ) return;
+            string newColor = cbAvailable.SelectedValue.ToString();
+
+            Available = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), newColor ); ;
+
+            Properties.Settings.Default["Color_Available"] = newColor;
+            Properties.Settings.Default.Save();
+        }
+
+        private void cbBusy_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if ( cbBusy.SelectedValue == null ) return;
+            string newColor = cbBusy.SelectedValue.ToString();
+
+            Busy = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), newColor ); ;
+
+            Properties.Settings.Default["Color_Busy"] = newColor;
+            Properties.Settings.Default.Save();
+        }
+
+        private void cbDoNotDisturb_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if ( cbDoNotDisturb.SelectedValue == null ) return;
+            string newColor = cbDoNotDisturb.SelectedValue.ToString();
+
+            DoNotDisturb = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), newColor ); ;
+
+            Properties.Settings.Default["Color_DoNotDisturb"] = newColor;
+            Properties.Settings.Default.Save();
+        }
+
+        private void cbAway_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if ( cbAway.SelectedValue == null ) return;
+            string newColor = cbAway.SelectedValue.ToString();
+
+            Away = (BlyncControl.BlyncColor)Enum.Parse( typeof( BlyncControl.BlyncColor ), newColor ); ;
+
+            Properties.Settings.Default["Color_Away"] = newColor;
             Properties.Settings.Default.Save();
         }
 

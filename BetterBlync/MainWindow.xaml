@@ -7,7 +7,7 @@
         xmlns:controls="clr-namespace:Microsoft.Lync.Controls;assembly=Microsoft.Lync.Controls" x:Class="BetterBlync.MainWindow"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="Better Blync" Height="300" Width="375" Closing="Window_Closing" Icon="betterblync.ico" StateChanged="Window_StateChanged" MinWidth="375" MinHeight="300" MaxWidth="375" MaxHeight="300" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="Better Blync" Height="300" Width="375" Closing="Window_Closing" Icon="blync.ico" StateChanged="Window_StateChanged" MinWidth="375" MinHeight="300" MaxWidth="375" MaxHeight="300" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF0C3387" Offset="0" />
@@ -20,7 +20,7 @@
         <!--Dropdown Panels-->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Incoming Call" FontSize="18.667" FontWeight="Bold" Foreground="#FFC1C1C1" />
-            <ComboBox x:Name="cbIncomingCall" Width="150" FontFamily="Trebuchet MS" FontSize="18.667" SelectionChanged="cbIncomingCall_SelectionChanged">
+            <ComboBox x:Name="cbIncomingCall" Width="150" FontFamily="Trebuchet MS" FontSize="18.667" SelectionChanged="cbIncomingCall_SelectionChanged" SelectedValuePath="Content">
                 <ComboBoxItem Background="#FFFD0909" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Red</ComboBoxItem>
                 <ComboBoxItem Background="#FFE7FD0A" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Yellow</ComboBoxItem>
                 <ComboBoxItem Background="#FF14FD09" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Green</ComboBoxItem>
@@ -31,63 +31,63 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Incoming Message" FontSize="18.667" FontWeight="Bold" Foreground="#FFC1C1C1" />
-            <ComboBox x:Name="cbIncomingMessage" Width="150" FontFamily="Trebuchet MS" FontSize="18.667" SelectionChanged="cbIncomingMessage_SelectionChanged">
-                <MenuItem Background="#FFFD0909" Width="140" />
-                <MenuItem Background="#FFE7FD0A" Width="140" />
-                <MenuItem Background="#FF14FD09" Width="140" />
-                <MenuItem Background="#FF0940FD" Width="140" />
-                <MenuItem Background="#FFE709FD" Width="140" />
-                <MenuItem Background="#FF09E7FD" Width="140" />
+            <ComboBox x:Name="cbIncomingMessage" Width="150" FontFamily="Trebuchet MS" FontSize="18.667" SelectionChanged="cbIncomingMessage_SelectionChanged" SelectedValuePath="Content">
+                <ComboBoxItem Background="#FFFD0909" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Red</ComboBoxItem>
+                <ComboBoxItem Background="#FFE7FD0A" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Yellow</ComboBoxItem>
+                <ComboBoxItem Background="#FF14FD09" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Green</ComboBoxItem>
+                <ComboBoxItem Background="#FF0940FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Blue</ComboBoxItem>
+                <ComboBoxItem Background="#FFE709FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Magenta</ComboBoxItem>
+                <ComboBoxItem Background="#FF09E7FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Cyan</ComboBoxItem>
             </ComboBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Available" FontSize="18.667" FontWeight="Bold" Foreground="#FFC1C1C1" />
-            <ComboBox Width="150" IsTextSearchEnabled="False">
-                <MenuItem Background="#FFFD0909" Width="140" />
-                <MenuItem Background="#FFE7FD0A" Width="140" />
-                <MenuItem Background="#FF14FD09" Width="140" />
-                <MenuItem Background="#FF0940FD" Width="140" />
-                <MenuItem Background="#FFE709FD" Width="140" />
-                <MenuItem Background="#FF09E7FD" Width="140" />
+            <ComboBox x:Name="cbAvailable" Width="150" FontFamily="Trebuchet MS" FontSize="18.667" SelectionChanged="cbAvailable_SelectionChanged" SelectedValuePath="Content">
+                <ComboBoxItem Background="#FFFD0909" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Red</ComboBoxItem>
+                <ComboBoxItem Background="#FFE7FD0A" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Yellow</ComboBoxItem>
+                <ComboBoxItem Background="#FF14FD09" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Green</ComboBoxItem>
+                <ComboBoxItem Background="#FF0940FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Blue</ComboBoxItem>
+                <ComboBoxItem Background="#FFE709FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Magenta</ComboBoxItem>
+                <ComboBoxItem Background="#FF09E7FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Cyan</ComboBoxItem>
             </ComboBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Busy / In a Meeting" FontSize="18.667" FontWeight="Bold" Foreground="#FFC1C1C1" />
-            <ComboBox Width="150">
-                <MenuItem Background="#FFFD0909" Width="140" />
-                <MenuItem Background="#FFE7FD0A" Width="140" />
-                <MenuItem Background="#FF14FD09" Width="140" />
-                <MenuItem Background="#FF0940FD" Width="140" />
-                <MenuItem Background="#FFE709FD" Width="140" />
-                <MenuItem Background="#FF09E7FD" Width="140" />
+            <ComboBox x:Name="cbBusy" Width="150" FontFamily="Trebuchet MS" FontSize="18.667" SelectionChanged="cbBusy_SelectionChanged" SelectedValuePath="Content">
+                <ComboBoxItem Background="#FFFD0909" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Red</ComboBoxItem>
+                <ComboBoxItem Background="#FFE7FD0A" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Yellow</ComboBoxItem>
+                <ComboBoxItem Background="#FF14FD09" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Green</ComboBoxItem>
+                <ComboBoxItem Background="#FF0940FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Blue</ComboBoxItem>
+                <ComboBoxItem Background="#FFE709FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Magenta</ComboBoxItem>
+                <ComboBoxItem Background="#FF09E7FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Cyan</ComboBoxItem>
             </ComboBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Do Not Disturb" FontSize="18.667" FontWeight="Bold" Foreground="#FFC1C1C1" />
-            <ComboBox Width="150">
-                <MenuItem Background="#FFFD0909" Width="140" />
-                <MenuItem Background="#FFE7FD0A" Width="140" />
-                <MenuItem Background="#FF14FD09" Width="140" />
-                <MenuItem Background="#FF0940FD" Width="140" />
-                <MenuItem Background="#FFE709FD" Width="140" />
-                <MenuItem Background="#FF09E7FD" Width="140" />
+            <ComboBox x:Name="cbDoNotDisturb" Width="150" FontFamily="Trebuchet MS" FontSize="18.667" SelectionChanged="cbDoNotDisturb_SelectionChanged" SelectedValuePath="Content">
+                <ComboBoxItem Background="#FFFD0909" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Red</ComboBoxItem>
+                <ComboBoxItem Background="#FFE7FD0A" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Yellow</ComboBoxItem>
+                <ComboBoxItem Background="#FF14FD09" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Green</ComboBoxItem>
+                <ComboBoxItem Background="#FF0940FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Blue</ComboBoxItem>
+                <ComboBoxItem Background="#FFE709FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Magenta</ComboBoxItem>
+                <ComboBoxItem Background="#FF09E7FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Cyan</ComboBoxItem>
             </ComboBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Away / Inactive" FontSize="18.667" FontWeight="Bold" Foreground="#FFC1C1C1" />
-            <ComboBox Width="150">
-                <MenuItem Background="#FFFD0909" Width="140" />
-                <MenuItem Background="#FFE7FD0A" Width="140" />
-                <MenuItem Background="#FF14FD09" Width="140" />
-                <MenuItem Background="#FF0940FD" Width="140" />
-                <MenuItem Background="#FFE709FD" Width="140" />
-                <MenuItem Background="#FF09E7FD" Width="140" />
+            <ComboBox x:Name="cbAway" Width="150" FontFamily="Trebuchet MS" FontSize="18.667" SelectionChanged="cbAway_SelectionChanged" SelectedValuePath="Content">
+                <ComboBoxItem Background="#FFFD0909" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Red</ComboBoxItem>
+                <ComboBoxItem Background="#FFE7FD0A" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Yellow</ComboBoxItem>
+                <ComboBoxItem Background="#FF14FD09" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Green</ComboBoxItem>
+                <ComboBoxItem Background="#FF0940FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Blue</ComboBoxItem>
+                <ComboBoxItem Background="#FFE709FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Magenta</ComboBoxItem>
+                <ComboBoxItem Background="#FF09E7FD" Width="140" FontSize="18.667" FontFamily="Trebuchet MS">Cyan</ComboBoxItem>
             </ComboBox>
         </StackPanel>
 
         <!--Button Panel-->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="btnReset" Content="Reset / Auto On" Width="120" Height="30" Margin="0,7,5,0" Click="btnReset_Click" />
+            <Button x:Name="btnReset" Content="Reset / Discover" Width="120" Height="30" Margin="0,7,5,0" Click="btnReset_Click" />
             <Button x:Name="btnShutOff" Content="Turn Off" Width="120" Height="30" Margin="5,7,0,0" Click="btnShutoff_Click" />
         </StackPanel>
 
@@ -95,7 +95,7 @@
         <tb:TaskbarIcon x:Name="blyncNotifyIcon"
                     Visibility="Visible"
                     ToolTipText="Better Blync"
-                    IconSource="/betterblync.ico"
+                    IconSource="/blync.ico"
                     MenuActivation="LeftOrRightClick"
                     PopupActivation="DoubleClick"
                     TrayMouseDoubleClick="blyncNotifyIcon_TrayMouseDoubleClick">
